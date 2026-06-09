@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='zh-Hant'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>外籍學生來台灣大挑戰</title>
+<style>
+body{font-family:Microsoft JhengHei,Arial;background:#eef5ff;margin:0;padding:20px}
+.box{max-width:900px;margin:auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+h1,h2{text-align:center;color:#1e40af}
+button{width:100%;padding:14px;margin:8px 0;border:none;border-radius:10px;background:#2563eb;color:white;font-size:18px}
+button:hover{background:#1d4ed8}
+.small{text-align:center;color:#666}
+</style>
+</head>
+<body>
+<div class="box"><div id="app"></div></div>
+<script>
+let score=0,current=0;
+const questions=[
+["剛到台灣，第一件事情應該做什麼？",["去夜市玩",0],["辦理宿舍入住",1],["買紀念品",0],"先找到住宿最重要！"],
+["入住後要辦理什麼？",["買機車",0],["辦理居留證ARC",1],["看電影",0],"ARC是外籍學生重要證件。"],
+["為什麼要辦理台灣手機號碼？",["比較好看",0],["方便聯絡和辦理服務",1],["沒有原因",0],"很多服務都需要手機驗證。"],
+["為什麼要開銀行帳戶？",["存放獎學金和生活費",1],["買零食",0],["交朋友",0],"銀行帳戶很重要。"],
+["為什麼要參加新生說明會？",["睡覺",0],["了解學校規定和課程資訊",1],["沒有必要",0],"可以獲得重要資訊。"],
+["聽不懂老師說話怎麼辦？",["睡覺",0],["主動問老師和同學",1],["直接回家",0],"勇敢發問最重要。"],
+["選課時應該先做什麼？",["隨便選",0],["查看課程資訊和學分要求",1],["不選課",0],"先了解課程內容。"],
+["哪個方法最容易認識朋友？",["待在宿舍",0],["參加社團活動",1],["不跟別人說話",0],"社團活動能認識朋友。"],
+["搭捷運時應該怎麼做？",["大聲講電話",0],["保持安靜",1],["吃便當",0],"要遵守公共禮儀。"],
+["如果在台灣生病了怎麼辦？",["不看醫生",0],["去診所或醫院",1],["一直睡覺",0],"健康最重要。"]
+];
+
+function cover(){
+score=0;current=0;
+app.innerHTML=`<h1>期末報告</h1>
+<p><b>主題：</b>外籍學生來台灣大挑戰</p>
+<p><b>學生：</b>武紅銀</p>
+<p><b>學號：</b>11457271</p>
+<p><b>課程：</b>運算思維與程式設計</p>
+<button onclick="intro()">開始</button>`;
+}
+function intro(){
+app.innerHTML=`<h2>遊戲說明</h2>
+<p>學習目標：了解外籍學生來台灣後需要完成的重要步驟與生活知識。</p>
+<p>玩法：回答10題選擇題，最後依照分數獲得不同結局。</p>
+<button onclick="showQ()">開始挑戰</button>`;
+}
+function showQ(){
+let q=questions[current];
+app.innerHTML=`<h2>第${current+1}關</h2><p>${q[0]}</p>
+<button onclick="answer(${q[1][1]})">A. ${q[1][0]}</button>
+<button onclick="answer(${q[2][1]})">B. ${q[2][0]}</button>
+<button onclick="answer(${q[3][1]})">C. ${q[3][0]}</button>
+<p class='small'>目前分數：${score}</p>`;
+}
+function answer(ok){
+if(ok) score++;
+current++;
+if(current<questions.length) showQ();
+else ending();
+}
+function ending(){
+let result="";
+if(score>=9) result="🏆 最佳結局：你已經完全了解外籍學生來台灣的重要步驟！";
+else if(score>=6) result="😊 普通結局：你已經適應大部分台灣生活。";
+else result="📚 挑戰結局：還有很多事情需要學習！";
+app.innerHTML=`<h2>遊戲結束</h2>
+<p>你的分數：${score}/10</p>
+<p>${result}</p>
+<button onclick="cover()">重新開始</button>`;
+}
+cover();
+</script>
+</body>
+</html>
